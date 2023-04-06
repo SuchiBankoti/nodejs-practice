@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 export default function Mainpage(props) {
-  let state = props.state;
+  const { state, items } = props;
+  const sortedList = useMemo(() => {
+    console.log("check for rerendering");
+    return items.sort((a, b) => a - b).map((e, i) => <li key={i}>{e}</li>);
+  }, [items]);
   return (
     <div
       className="mainpage"
@@ -11,12 +15,7 @@ export default function Mainpage(props) {
       }}
     >
       <h2>Fun Facts About React</h2>
-      <ul>
-        <li>React is declarative</li>
-        <li>Every component must return JSX syntax</li>
-        <li>Return value should contain single parent</li>
-        <li>Webpack is used to bind all the files</li>
-      </ul>
+      <ul>{sortedList}</ul>
     </div>
   );
 }
